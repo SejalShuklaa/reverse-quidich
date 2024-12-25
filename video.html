@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll-Synced Videos</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    #container {
+      position: relative;
+      width: 100%;
+    }
+
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    #video2 {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="container">
+  <video id="video1" src="orange-first-fold.mp4" muted></video>
+  <video id="video2" src="quidich-prerender.mp4" muted></video>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const video1 = document.getElementById("video1");
+  const video2 = document.getElementById("video2");
+  const container = document.getElementById("container");
+
+  // Set up smooth scrolling
+  document.documentElement.style.scrollBehavior = "smooth";
+
+  // Variables for video playback sync
+  let scrollMax = container.offsetHeight - window.innerHeight;
+
+  const updateScrollMax = () => {
+    scrollMax = container.offsetHeight - window.innerHeight;
+  };
+
+  window.addEventListener("resize", updateScrollMax);
+
+  const handleScroll = () => {
+    if (scrollY < scrollMax) {
+      const scrollFraction = scrollY / scrollMax;
+      const videoTime = scrollFraction * video1.duration;
+      video1.currentTime = videoTime;
+      if (!video1.playing) {
+        video1.play();
+      }
+    } else {
+      video1.pause();
+    }
+  };
+
+  video1.playing = false;
+  video1.addEventListener('play', () => { video1.playing = true; });
+  video1.addEventListener('pause', () => { video1.playing = false; });
+
+  window.addEventListener("scroll", handleScroll);
+
+  // Handle first video ending
+  video1.addEventListener("ended", () => {
+    window.removeEventListener("scroll", handleScroll);
+    video2.style.display = "block";
+    video1.style.display = "none";
+    video2.play();
+  });
+
+  // Set up styles for smooth UX
+  video2.style.display = "none";
+
+  container.style.height = `${window.innerHeight + video1.duration * 500}px`;
+});
+</script>
+
+</body>
+</html>
