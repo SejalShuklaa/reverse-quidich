@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quidich video</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <!-- First Video -->
+  <div class="video-container">
+    <video id="scrollVideo" preload="metadata">
+      <source src="orange-first-fold.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div id="scrollPrompt" class="scroll-prompt hidden">Scroll Down</div>
+  </div>
+
+  <!-- Second Video -->
+  <div id="secondVideoContainer" class="hidden">
+    <video id="autoplayVideo" muted playsinline autoplay>
+      <source src="quidich-prerender.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
