@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+  background: #000;
+  overflow-y: scroll;
+  font-family: Arial, sans-serif;
+  scroll-behavior: smooth;
+}
+
+.video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#scrollVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  transition: opacity 1s ease-in-out; /* Smooth fade-out effect */
+}
+
+#scrollVideo.fade-out {
+  opacity: 0;
+}
+
+.scroll-prompt {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #fff;
+  animation: fadeInOut 2s infinite;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#secondVideoContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: none; /* Initially hidden */
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  opacity: 0; /* Initially invisible */
+  transition: opacity 1s ease-in-out; /* Smooth fade-in effect */
+}
+
+#secondVideoContainer.fade-in {
+  display: flex;
+  opacity: 1;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
